@@ -19,19 +19,26 @@ class BinaryConfusionMatrix {
   def apply(i: Int, j: Int) = matrix(i)(j)
 
   private def tp = matrix(1)(1).toDouble
-  private def fp = matrix(0)(1).toDouble
+  private def fp = matrix(1)(0).toDouble
   private def tn = matrix(0)(0).toDouble
-  private def fn = matrix(1)(0).toDouble
+  private def fn = matrix(0)(1).toDouble
 
-  def recall = tp / (tp + fn)
+  def recall = if (tp == 0.0) 0.0
+    else tp / (tp + fn)
+
   def sensitivity = recall
 
-  def precision = tp / (tp + fp)
-  def specificity = tn / (fp + tn)
+  def precision = if (tp == 0.0) 0.0
+    else tp / (tp + fp)
 
-  def accuracy = (tp + tn) / all
+  def specificity = if (tn == 0.0) 0.0
+    else tn / (fp + tn)
 
-  def f1Score = 2 * tp / (2 * tp + fp + fn)
+  def accuracy = if (tp + tn == 0.0) 0.0
+  else (tp + tn) / all
+
+  def f1Score = if (tp == 0.0) 0.0
+    else 2 * tp / (2 * tp + fp + fn)
 
 }
 

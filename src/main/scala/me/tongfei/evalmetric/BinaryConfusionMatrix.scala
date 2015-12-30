@@ -7,8 +7,8 @@ package me.tongfei.evalmetric
   */
 class BinaryConfusionMatrix {
 
-  private val matrix = Array.ofDim[Int](2, 2)
-  private var all = 0
+  private[evalmetric] var matrix = Array.ofDim[Int](2, 2)
+  private[evalmetric] var all = 0
 
   /**
     * Returns the number of samples that are <ul>

@@ -11,6 +11,12 @@ object Evaluator {
     BinaryConfusionMatrix(predicted, gold)
   }
 
+  /** Returns an object that contains various evaluation metrics of a multi-class classifier. */
+  def classifier[A](model: A => Int, dataset: Seq[A], gold: Seq[Int]) = {
+    val predicted = dataset map model
+    ConfusionMatrix(predicted, gold)
+  }
+
   /** Returns an object that contains various evaluation metrics of an information retrieval system. */
   def informationRetrievalSystem[A, B](model: A => Seq[B], dataset: Seq[A], gold: Seq[B => Boolean]) = {
     val predicted = dataset map model
